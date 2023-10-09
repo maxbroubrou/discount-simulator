@@ -1,4 +1,5 @@
-import { Store, DiscountOffer } from "./store";
+import { Store } from "../classes/store";
+import { DiscountOffer } from "../classes/discountOffer";
 
 describe("Store", () => {
   it("should decrease the discount and expiresIn", () => {
