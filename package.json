@@ -12,7 +12,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "jest",
-    "start": "babel-node index.js"
+    "start": "babel-node index.js",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
@@ -25,8 +26,16 @@
     "eslint": "^5.6.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^2.6.2",
+    "husky": "^8.0.0",
+    "husky-init": "^8.0.0",
     "jest": "24.8.0",
     "prettier": "^1.14.3",
     "regenerator-runtime": "^0.12.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo ”[Husky] pre-commit”",
+      "commit-msg": "echo ”[Husky] commit-msg”"
+    }
   }
 }
