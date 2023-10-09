@@ -1,0 +1,70 @@
+[
+    {
+        "name": "Velib",
+        "durationInDays": 20,
+        "initialPercentage": 30
+    },
+    {
+        "name": "Naturalia",
+        "durationInDays": 10,
+        "initialPercentage": 5,
+        "rules": [
+            {
+                "expireRange": {
+                    "start": "-inf",
+                    "end": -1
+                },
+                "discountChange": 2
+            },
+            {
+                "expireRange": {
+                    "start": 0,
+                    "end": "inf"
+                },
+                "discountChange": 1
+            }
+        ]
+    },
+    {
+        "name": "Vinted",
+        "durationInDays": 5,
+        "initialPercentage": 40,
+        "dropsToZeroWhenExpired": true,
+        "rules": [
+            {
+                "expireRange": {
+                    "start": "-inf",
+                    "end": 0
+                },
+                "discountChange": 0
+            },
+            {
+                "expireRange": {
+                    "start": 1,
+                    "end": 5
+                },
+                "discountChange": 3
+            },
+            {
+                "expireRange": {
+                    "start": 6,
+                    "end": 10
+                },
+                "discountChange": 2
+            },
+            {
+                "expireRange": {
+                    "start": 11,
+                    "end": "inf"
+                },
+                "discountChange": 1
+            }
+        ]
+    },
+    {
+        "name": "Ilek",
+        "durationInDays": 15,
+        "initialPercentage": 40,
+        "canExpires": false
+    }
+]

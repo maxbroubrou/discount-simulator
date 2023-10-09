@@ -1,0 +1,23 @@
+{
+    "durationInDays": 30,
+    "initialPercentage": 25,
+    "maxDiscount": 50,
+    "canExpires": true,
+    "dropsToZeroWhenExpired": false,
+    "rules": [
+        {
+            "expireRange": {
+                "start" :"-inf",
+                "end": -1
+            },
+            "discountChange": -2
+        },
+        {
+            "expireRange": {
+                "start" :0,
+                "end": "inf"
+            },
+            "discountChange": -1
+        }
+    ]
+}
