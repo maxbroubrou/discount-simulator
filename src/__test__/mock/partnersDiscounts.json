@@ -1,0 +1,23 @@
+[
+    {
+        "name": "increasingDiscountPartner",
+        "maxDiscount": 50,
+        "rules": [
+            {
+                "expireRange": {
+                    "start": 0,
+                    "end": 5
+                },
+                "discountChange": 1
+            }
+        ]
+    },
+    {
+        "name": "neverExpiresNorDecreasesPartner",
+        "canExpires": false
+    },
+    {
+        "name": "dropToZeroPartner",
+        "dropsToZeroWhenExpired": true
+    }
+]
