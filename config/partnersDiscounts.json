@@ -66,5 +66,17 @@
         "durationInDays": 15,
         "initialPercentage": 40,
         "canExpires": false
+    },
+    {
+        "name": "BackMarket",
+        "rules": [
+            {
+                "expireRange": {
+                    "start": "-inf",
+                    "end": "inf"
+                },
+                "discountChange": -2
+            }
+        ]
     }
 ]
