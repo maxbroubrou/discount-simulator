@@ -1,15 +1,27 @@
 import { Store } from "./src/classes/store";
 import { DiscountOffer } from "./src/classes/discountOffer";
 
+import defaultConfig from "./config/defaultDiscount.json";
+import partnersConfig from "./config/partnersDiscounts.json";
+
 import fs from "fs";
 
 const ELAPSED_DAYS = 30;
-const discountOffers = [
-  new DiscountOffer("Velib", 20, 30),
-  new DiscountOffer("Naturalia", 10, 5),
-  new DiscountOffer("Vinted", 5, 40),
-  new DiscountOffer("Ilek", 15, 40)
-];
+const discountOffers = [];
+
+for (const partner of partnersConfig) {
+  if (!partner.name) {
+    throw new Error(`Partner ${partner} is missing required 'name' property`);
+  }
+  discountOffers.push(
+    new DiscountOffer(
+      partner.name,
+      partner.durationInDays || defaultConfig.durationInDays,
+      partner.initialPercentage || defaultConfig.initialPercentage
+    )
+  );
+}
+
 const store = new Store(discountOffers);
 
 const log = [];
