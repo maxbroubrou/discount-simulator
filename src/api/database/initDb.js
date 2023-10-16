@@ -1,7 +1,7 @@
 import { database } from "./config.js";
 import { Sequelize, DataTypes } from "sequelize";
-import defaultConfig from "../../../config/defaultDiscount.json" assert { type: "json" };
-import partnersConfig from "../../../config/partnersDiscounts.json" assert { type: "json" };
+import defaultConfig from "../../../config/defaultDiscount.json";
+import partnersConfig from "../../../config/partnersDiscounts.json";
 
 const sequelize = new Sequelize(database);
 
