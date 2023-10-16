@@ -1,6 +1,8 @@
 # Discount simulator for partners
 
-Backend service to simulate discounts of partners on an ecommerce store.
+Backend service to simulate discounts of partners on an ecommerce store, including an API.
+
+You can find a [deployed API](http://35.180.66.136:3000/api-docs/) and a [UI example](https://mbroussart.retool.com/apps/0044eca2-6883-11ee-bd38-0bd44c737b96/Greenly%20discount%20simulator) to simulate discount.
 
 ## 🚅 System specifications
 
@@ -56,8 +58,11 @@ In this JSON configuration, each object of the main array is a partner. The `nam
 ]
 ```
 
-## 🏃 Run the simulation
+## 🏃 Quick start
 
+### One-run simulation locally
+
+Config the discount offers on [`config/partnersDiscounts.json`](config/partnersDiscounts.json) then launch the simulation.
 The log of the simulation is written in an [_output.txt_](./output.txt) file.
 You can generate a new file by running one of the following commands:
 
@@ -65,11 +70,20 @@ You can generate a new file by running one of the following commands:
 yarn && yarn start
 ```
 
+### Run the API locally on port 3000
+
+[API Documentation](http://127.0.0.1:3000/api-docs/)
+
+```sh
+yarn && yarn serve
+```
+
 or
 
 ```sh
-docker-compose up
+docker-compose up db server
 ```
+(this will pull docker image of the project available on [docker-hub](https://hub.docker.com/repository/docker/broubroumachine/discount-simultor-api/general))
 
 ### Run the tests
 
