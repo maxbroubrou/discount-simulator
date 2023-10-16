@@ -1,4 +1,4 @@
-FROM node:12.10.0-alpine
+FROM node:18.17.1-alpine
 
 WORKDIR /usr/src
 
@@ -7,4 +7,4 @@ RUN yarn install
 
 COPY . /usr/src/
 
-CMD ["yarn", "start"]
+CMD ["node", "src/api"]

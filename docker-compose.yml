@@ -1,7 +1,16 @@
 version: "3"
 services:
-  greenly:
-    build: .
-    volumes:
-      - ".:/usr/src"
-      - /usr/src/node_modules
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - '5434:5432'
+    environment:
+      - POSTGRES_PASSWORD=postgres
+  server:
+    image: broubroumachine/discount-simultor-api
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
