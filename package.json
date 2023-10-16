@@ -9,11 +9,13 @@
     "yarn": ">=1.7.0",
     "node": ">=12.x"
   },
+  "type": "module",
   "scripts": {
     "lint": "eslint .",
     "test": "jest",
     "start": "babel-node index.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "serve": "babel-node src/api/index.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
@@ -37,5 +39,10 @@
       "pre-commit": "echo ”[Husky] pre-commit”",
       "commit-msg": "echo ”[Husky] commit-msg”"
     }
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "sequelize": "^6.31.0",
   }
 }
