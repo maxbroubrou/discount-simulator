@@ -1,0 +1,235 @@
+openapi: 3.1.0
+info:
+  title: 🟢🌱 Discount simulator for Greenly partners 🌱🟢
+  description: 
+    API for Greenly partners to create, manage, and simulate discounts on an e-commerce store. Supports discount offer creation, discount simulations, and database interaction.
+  contact:
+    email: mbroussart@gmail.com
+  version: 1.0.11
+externalDocs:
+  description: Github project
+  url: https://github.com/maxbroubrou/discount-simulator/tree/feat/updateDiscounts
+servers:
+  - url: http://35.180.242.124:3000
+  - url: http://127.0.0.1:3000
+tags:
+  - name: Offer
+    description: Manage discount offers by partners
+  - name: Simulate
+    description: Simulate discount over time
+paths:
+  /offers:
+    post:
+      tags:
+        - Offer
+      summary: Upsert a discount offer
+      description: Create or Update a discount offer
+      operationId: upsertOffer
+      requestBody:
+        description: discount offer to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discountOffer'
+        required: true
+      responses:
+        '200':
+          description: Discount offer updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/discountOffer'
+        '201':
+          description: Discount offer created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discountOffer'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      tags:
+        - Offer
+      summary: Retrieve the lists of discount offers
+      description: Retrieve all the discount offers
+      operationId: getOffers
+      responses:
+        '200':
+          description: Successfully get the discount offers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/discountOffer'
+        '204':
+          $ref: '#/components/responses/204'
+        '500':
+          $ref: '#/components/responses/500'
+  /offers/{partnerName}:
+    delete:
+      tags:
+        - Offer
+      summary: Delete an offer via partner name
+      operationId: deleteOfferByPartnerName
+      parameters:
+      - name: partnerName
+        in: path
+        required: true
+        schema:
+          type: string
+          example: Naturalia
+        description: Name of the partner to remove
+      responses:
+        "200":
+          description: "Discount offer successfully deleted"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Offer <partnerName> successfully deleted'
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+  /simulate/{days}:
+    get:
+      tags:
+        - Simulate
+      summary: Simulate discount of partners over time
+      parameters:
+        - name: days
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 30
+          description: Number of days to simulate the discount
+        - name: partners
+          in: query
+          schema:
+              type: object
+              properties:
+                partners:
+                  type: array
+                  items:
+                    type: string
+                    example: Naturalia
+          description: List of partners to simulate discount offers
+      responses:
+        "200":
+          description: "The discount percentages over time and by partner"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        partnerName:
+                          type: string
+                          example: Naturalia
+                        discountInPercent:
+                          type: integer
+                          example: 25
+                        expiresIn:
+                          type: integer
+                          example: 30
+        "500":
+          $ref: "#/components/responses/500"
+
+components:
+  schemas:
+    discountOffer:
+      type: object
+      properties:
+        partnerName:
+          type: string
+          example: Naturalia
+        expiresIn:
+          type: integer
+          example: 30
+        discountRateInPercent:
+          type: integer
+          example: 25
+        maxDiscount:
+          type: integer
+          example: 50
+        canExpires:
+          type: boolean
+          example: true
+        dropsToZeroWhenExpired:
+          type: boolean
+          example: false
+        rules:
+          type: array
+          items:
+            type: object
+            properties:
+              expireRange:
+                type: object
+                properties:
+                  start:
+                    type: string
+                    example: -inf
+                  end:
+                    type: string
+                    example: 5
+              discountChange:
+                type: integer
+                example: -2
+      required:
+        - partnerName
+        - expiresIn
+        - discountRateInPercent
+        - maxDiscount
+        - canExpires
+        - dropsToZeroWhenExpired
+        - rules
+  responses:
+    '204':
+      description: 'No Content'
+      content:
+          application/json:
+            example: []
+    '400':
+      description: Client error
+      content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: 'Invalid parameters'
+    '404':
+      description: 'Resource not found'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: 'Entity not found'
+    '500':
+      description: 'An error occurred'
+      content:
+        application/json:
+          schema:
+            type: object
+            example: { 'message': 'Error: <specific error message>' }
